@@ -478,4 +478,9 @@ H.addEventListener("change",paint);
 L.addEventListener("click",async e=>{const b=e.target.closest(".wcp");if(!b)return;const t=b.dataset.t,l=b.textContent;let ok=false;
 try{await navigator.clipboard.writeText(t);ok=true}catch(_){const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{ok=document.execCommand("copy")}catch(_){}a.remove()}
 b.textContent=ok?"คัดลอกแล้ว ✓":"คัดลอกไม่ได้";if(ok)b.classList.add("ok");setTimeout(()=>{b.textContent=l;b.classList.remove("ok")},1600)});paint()})();</script>
-</section></body></html>
+</section><script>(()=>{const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(!ios)return;document.addEventListener("click",async e=>{const a=e.target.closest("a[download]");if(!a||!/\.mp4/i.test(a.href))return;e.preventDefault();
+const l=a.textContent;a.textContent="กำลังโหลดคลิป…";try{const r=await fetch(a.href);if(!r.ok)throw 0;const b=await r.blob();
+const f=new File([b],a.getAttribute("download")||"clip.mp4",{type:"video/mp4"});
+if(navigator.canShare&&navigator.canShare({files:[f]})){a.textContent=l;await navigator.share({files:[f]});return}throw 0}
+catch(err){a.textContent=l;if(err&&err.name==="AbortError")return;alert("เปิดคลิปให้แล้ว: กดปุ่มแชร์ (สี่เหลี่ยมลูกศรขึ้น) แล้วเลือก 'บันทึกวิดีโอ'");window.open(a.href,"_blank")}})})();</script></body></html>

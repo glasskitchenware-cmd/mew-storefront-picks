@@ -34,7 +34,7 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#fafafa;border:1
 <body>
 <header>
 <h1>น้องมิว · คลิปลง Shopee Video</h1>
-<div class="upd">อัปเดตล่าสุด: 01/11/2026 08:12 น. (เวลาไทย) · 45 คลิป</div>
+<div class="upd">อัปเดตล่าสุด: 01/11/2026 09:43 น. (เวลาไทย) · 45 คลิป</div>
 <a class="nav" href="me.html">← กลับหน้าลิงก์สินค้า</a>
 <label class="bar"><input type="checkbox" id="hide"> ซ่อนคลิปที่โพสต์แล้ว</label>
 </header>
@@ -97,5 +97,10 @@ if(await copy(t)){b.textContent="คัดลอกแล้ว ✓";b.classList
 $("#list").addEventListener("change",e=>{if(!e.target.classList.contains("dn"))return;const n=e.target.closest(".card").dataset.n;if(e.target.checked)done[n]=Date.now();else delete done[n];localStorage.setItem(KEY,JSON.stringify(done));render()});
 $("#hide").addEventListener("change",render);render();
 </script>
-</body>
+<script>(()=>{const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(!ios)return;document.addEventListener("click",async e=>{const a=e.target.closest("a[download]");if(!a||!/\.mp4/i.test(a.href))return;e.preventDefault();
+const l=a.textContent;a.textContent="กำลังโหลดคลิป…";try{const r=await fetch(a.href);if(!r.ok)throw 0;const b=await r.blob();
+const f=new File([b],a.getAttribute("download")||"clip.mp4",{type:"video/mp4"});
+if(navigator.canShare&&navigator.canShare({files:[f]})){a.textContent=l;await navigator.share({files:[f]});return}throw 0}
+catch(err){a.textContent=l;if(err&&err.name==="AbortError")return;alert("เปิดคลิปให้แล้ว: กดปุ่มแชร์ (สี่เหลี่ยมลูกศรขึ้น) แล้วเลือก 'บันทึกวิดีโอ'");window.open(a.href,"_blank")}})})();</script></body>
 </html>
